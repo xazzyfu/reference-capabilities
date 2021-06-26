@@ -151,3 +151,37 @@ with schedule(a) as x, consume(b) as mut y:
   # because a consumed reference can become any capability
   # same rules otherwise
 ```
+
+```
+asy a
+
+# f represents a future computation on a
+f = Future(a)
+
+# a computation can be scheduled on a through f
+with schedule(f) as x:
+  # same rules as with schedule(a)
+
+# f is able to wait until the scheduled computation completes
+wait(f)
+```
+
+```
+asy a
+
+# Future can take a consumed reference as second argument
+f = Future(a, consume List[Value]())
+
+# f then behaves exactly like a mut reference to the same object
+f.append(Value(1))
+
+with schedule(f) as x:
+  # f is accessible within the asynchronous computation
+  f.append(Value(2))
+
+# but once a task is scheduled through f
+# accessing the referenced object implictly causes f to wait
+
+# f waits first until the computation is complete
+value = f.pop()
+```
