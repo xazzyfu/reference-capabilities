@@ -7,3 +7,4 @@ Ideas for a system of thread-safe reference capabilities, inspired by
 [Rust](https://blog.rust-lang.org/2015/04/10/Fearless-Concurrency.html).
 
 - [capabilities.md](capabilities.md): a formal description of the system
+- [counting.md](counting.md): ideas for a reference counting implementation
